@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!-- 把只绑定到innerHTML -->
+    <div>{{ message }}</div>
+    <!-- 把值绑定到属性 -->
+    <div v-bind:title="title">
+        鼠标悬停几秒钟查看此处动态绑定的提示信息！
+    </div>
+    <div :title="title">
+        鼠标悬停几秒钟查看此处动态绑定的提示信息！（我是语法糖的简写）
+    </div>
+
+    <div>{{ sex }}</div>
+    <button v-on:click="sex = '女孩子'">Change 写法一</button>
+    <button @click="sex = 'Gay'">Change 写法二</button>
+</div>
+</body>
+<script src="vue.js"></script>
+<script>
+    const data = {
+        message: 'Hello Vue!',
+        title: '页面加载于 ' + new Date().toLocaleString(),
+        sex: '男孩子'
+    };
+    const app = new Vue({
+        el: '#app',
+        data: data
+    })
+</script>
+</html>

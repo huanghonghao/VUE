@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!-- 把只绑定到innerHTML -->
+    <div>{{ message }}</div>
+
+</div>
+</body>
+<script src="vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue'
+        },
+        created() {
+            // `this` 指向 vm 实例
+            console.log('message is: ' + this.message)
+        }
+    })
+</script>
+</html>
