@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>插值</title>
+    <style>
+        .demo-color {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>{{ message }}</div>
+        <div v-once>这个将不会改变: {{ message2 }}</div>
+
+        <br>
+        <!-- 渲染原生HTML -->
+        <div>
+            我要把原生HTML渲染出来：{{ rowHtml }}
+        </div>
+        <div>
+            我要把原生HTML渲染出来：<span v-html="rowHtml"></span>
+        </div>
+
+        <br>
+        <!-- 绑定属性值 -->
+        <img v-bind:src="imageUrl" alt="">
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+
+        <br><br>
+        <!-- 表达式 -->
+        <div>{{ number + 1 }}</div>
+        <div>{{ ok ? 'YES' : 'NO' }}</div>
+        <div>{{ message.split('').reverse().join('') }}</div>
+        <div v-bind:class="prefix + 'color'">我有颜色</div>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            message2: '我只做一次插值，数据改变时我不会更新',
+            rowHtml: '<span style="color:green">我是绿色的</span>',
+            imageUrl: 'https://www.baidu.com/img/baidu_jgylogo3.gif',
+            isButtonDisabled: false,
+            number: 1,
+            ok: true,
+            prefix: 'demo-'
+        },
+    });
+</script>
+</html>

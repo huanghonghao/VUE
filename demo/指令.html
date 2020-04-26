@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>指令</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="seen">你看我不见</div>
+
+        <a v-bind:href="url">百度</a>
+        <!-- 2.6.0开始，本例用的是2.6.11 -->
+        <a :[attributename]="attributeValue">我演示动态参数</a>
+        <br><br>
+        <input type="text" v-on:[eventname]="action" />
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            seen: false,
+            url: 'https://www.baidu.com',
+            attributename: 'href',
+            attributeValue: 'https://www.baidu.com',
+            eventname: 'focus' // focus or blur
+        },
+        methods: {
+            action() {
+                console.log(this.eventname);
+            }
+        }
+    });
+</script>
+</html>

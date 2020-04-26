@@ -8,7 +8,6 @@
 <div id="app">
     <!-- 把只绑定到innerHTML -->
     <div>{{ message }}</div>
-
 </div>
 </body>
 <script src="vue.js"></script>
@@ -18,9 +17,35 @@
         data: {
             message: 'Hello Vue'
         },
+        // 实例创建
+        beforeCreate() {
+            console.log('beforeCreate...');
+        },
         created() {
             // `this` 指向 vm 实例
-            console.log('message is: ' + this.message)
+            console.log('created...');
+            console.log('通过this获取data: ' + this.message)
+        },
+        // 模板被编译挂载
+        beforeMount() {
+            console.log('beforeMount...');
+        },
+        mounted() {
+            console.log('mounted...');
+        },
+        // data 被修改 虚拟DOM重新渲染
+        beforeUpdate() {
+            console.log('beforeUpdate...');
+        },
+        updated() {
+            console.log('updated...');
+        },
+        // 解除数据绑定，销毁子组件和事件监听器，通过vm.$destroy()完成
+        beforeDestroy() {
+            console.log('beforeDestroy...');
+        },
+        destroyed() {
+            console.log('destroyed...');
         }
     })
 </script>
