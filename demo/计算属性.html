@@ -20,6 +20,14 @@
         <div>我是翻转后的消息：{{ reversedMessage() }}</div>
         <div>我是翻转后的消息：{{ reversedMessage() }}</div>
     </div>
+    <br>
+    <div id="app3">
+        <div>{{ fullName }}</div>
+    </div>
+    <br>
+    <div id="app4">
+        <div>{{ fullName }}</div>
+    </div>
 </body>
 <script src="vue.js"></script>
 <script>
@@ -51,6 +59,36 @@
             },
         }
     });
+
+    const vm3 = new Vue({
+        el: '#app3',
+        data: {
+            firstName: 'Jason',
+            lastName: 'Wong',
+            fullName: 'Jason Wong'
+        },
+        watch: {
+            firstName(newValue) {
+                this.fullName = newValue + this.lastName
+            },
+            lastName(newValue) {
+                this.fullName = this.firstName + newValue
+            }
+        }
+    });
+
+    const vm4 = new Vue({
+        el: '#app4',
+        data: {
+            firstName: 'Jason',
+            lastName: 'Wong',
+        },
+        computed: {
+            fullName() {
+                return this.firstName + this.lastName
+            }
+        }
+    })
 
     // const test = {
     //     _name: 'zhangsan',

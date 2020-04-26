@@ -275,8 +275,6 @@ Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM
   <span v-once>这个将不会改变: {{ msg }}</span>
   ```
 
-  
-
 * **原生HTML**
 
   双大括号会将数据解释为普通文本，而非 HTML 代码。为了输出真正的 HTML，你需要使用 [`v-html` 指令](https://cn.vuejs.org/v2/api/#v-html)：
@@ -285,8 +283,6 @@ Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM
   <p>Using mustaches: {{ rawHtml }}</p>
   <p>Using v-html directive: <span v-html="rawHtml"></span></p>
   ```
-
-  
 
 * **Attribute**
 
@@ -303,8 +299,6 @@ Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM
   ```
 
   如果 `isButtonDisabled` 的值是 `null`、`undefined` 或 `false`，则 `disabled` attribute 甚至不会被包含在渲染出来的 `<button>` 元素中。
-
-  
 
 * **JavaScript 表达式**
 
@@ -358,8 +352,6 @@ Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM
   <a v-on:click="doSomething">...</a>
   ```
 
-  
-
 * **动态参数**
 
   从 2.6.0 开始，可以用方括号括起来的 JavaScript 表达式作为一个指令的参数：
@@ -380,8 +372,6 @@ Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM
   ```html
   <input type="text" v-on:[eventname]="action" />
   ```
-
-  
 
 * **修饰符**
 
@@ -534,6 +524,83 @@ const vm2 = new Vue({
 
 #### 3、计算属性和侦听属性
 
+Vue 提供了一种更通用的方式来观察和响应 Vue 实例上的数据变动：**侦听属性**。当你有一些数据需要随着其它数据变动而变动时，你很容易滥用 `watch`——特别是如果你之前使用过 AngularJS。然而，通常更好的做法是使用计算属性而不是命令式的 `watch` 回调。细想一下这个例子：
+
+```html
+<div id="demo">{{ fullName }}</div>
+```
+
+```js
+var vm = new Vue({
+  el: '#demo',
+  data: {
+    firstName: 'Foo',
+    lastName: 'Bar',
+    fullName: 'Foo Bar'
+  },
+  watch: {
+    firstName: function (val) {
+      this.fullName = val + ' ' + this.lastName
+    },
+    lastName: function (val) {
+      this.fullName = this.firstName + ' ' + val
+    }
+  }
+})
+```
+
+上面代码是命令式且重复的。将它与计算属性的版本进行比较：
+
+```js
+var vm = new Vue({
+  el: '#demo',
+  data: {
+    firstName: 'Foo',
+    lastName: 'Bar'
+  },
+  computed: {
+    fullName: function () {
+      return this.firstName + ' ' + this.lastName
+    }
+  }
+})
+```
+
+
+
+#### 4、计算属性的getter和setter
+
+计算属性默认只有 getter，不过在需要时你也可以提供一个 setter：
+
+```js
+computed: {
+  fullName: {
+    // getter
+    get: function () {
+      return this.firstName + ' ' + this.lastName
+    },
+    // setter
+    set: function (newValue) {
+      var names = newValue.split(' ')
+      this.firstName = names[0]
+      this.lastName = names[names.length - 1]
+    }
+  }
+}
+```
+
+
+
+#### 5、侦听器
+
+虽然计算属性在大多数情况下更合适，但有时也需要一个自定义的侦听器。这就是为什么 Vue 通过 `watch` 选项提供了一个更通用的方法，来响应数据的变化。当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的。
+
+例子：侦听器.html
+
+使用 `watch` 选项允许我们执行异步操作 (访问一个 API)，限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。这些都是计算属性无法做到的。
+
+除了 `watch` 选项之外，您还可以使用命令式的 [vm.$watch API](https://cn.vuejs.org/v2/api/#vm-watch)。
+
 
 
 ## 专业术语
@@ -579,6 +646,18 @@ var app2 = new Vue({
  `v-bind` attribute 被称为**指令**。指令带有前缀 `v-`，以表示它们是 Vue 提供的特殊 attribute。可能你已经猜到了，它们会在渲染的 DOM 上应用特殊的响应式行为。在这里，该指令的意思是：“将这个元素节点的 `title` attribute 和 Vue 实例的 `message` 属性保持一致”。
 
 如果你再次打开浏览器的 JavaScript 控制台，输入 `app2.message = '新消息'`，就会再一次看到这个绑定了 `title` attribute 的 HTML 已经进行了更新。
+
+
+
+### 声明式编程
+
+告诉“机器”你想要的*是什么(what)*，让机器想出*如何*去做*(how)。*
+
+
+
+### 命令式编程
+
+命令“机器”*如何*去做事情*(how)*，这样不管你想要的*是什么(what)*，它都会按照你的命令实现。
 
 
 
