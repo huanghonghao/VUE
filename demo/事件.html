@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件处理</title>
+</head>
+<body>
+<div id="app">
+    <!-- 取消默认行为 -->
+    <a href="#" @click.prevent="click">链接</a>
+</div>
+<script src="vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        methods: {
+            click() {
+                console.log('点击了链接a标签');
+            }
+        }
+    });
+</script>
+</body>
+</html>

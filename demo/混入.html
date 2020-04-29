@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>混入</title>
+</head>
+<body>
+
+<script src="vue.js"></script>
+<script>
+    const mixin = {
+        created: function () {
+            console.log('混入对象的钩子被调用')
+        }
+    };
+
+    const mixin2 = {
+        created() {
+            console.log('混入对象的钩子被调用222');
+        }
+    };
+
+    new Vue({
+        mixins: [mixin, mixin2],
+        created: function () {
+            console.log('组件钩子被调用')
+        }
+    })
+</script>
+</body>
+</html>

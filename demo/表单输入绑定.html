@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单输入绑定</title>
+</head>
+<body>
+<div id="app">
+    <select v-model="selected">
+        <option>男</option>
+        <option value="1">女</option>
+    </select>
+    <input type="radio" v-model="sex" value="a">男
+    <input type="radio" v-model="sex" value="b">女
+
+    <input type="checkbox" v-model="checkbox" true-value="yes" false-value="no">
+</div>
+<script src="vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            selected: '',
+            sex: 'b',
+            checkbox: true
+        },
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="item in items" :key="item.name">
+            姓名： {{ item.name }}, 年龄： {{ item.age }}
+        </li>
+    </ul>
+</div>
+<script src="vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            items: [
+                {name: 'zhangsan', age: 12},
+                {name: 'xiaoming', age: 23},
+                {name: 'Jason Wong', age: 25}
+            ]
+        }
+    });
+</script>
+</body>
+</html>
